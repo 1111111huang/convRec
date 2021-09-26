@@ -1,0 +1,73 @@
+version: "2.0"
+intents:
+  - request_restaurant
+  - chitchat
+  - inform
+  - affirm
+  - deny
+  - stop
+  - thankyou
+  - greet
+  - bot_challenge
+
+entities:
+  - preference
+
+slots:
+  preferences:
+    type: list
+    initial_value: []
+    influence_conversation: false
+    auto_fill: false
+
+  cuisine:
+    type: text
+    influence_conversation: false
+    auto_fill: false
+
+  outdoor_seating:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    auto_fill: false
+
+responses:
+  utter_ask_preferences:
+    - text: "What are your preferences?"
+  utter_ask_for_more:
+    - text: "Got it, anything else?"
+    - text: "Noted, any other preferences?"
+    - text: "Any more preferences?"
+  utter_submit:
+  - text: "All done!"
+  utter_slots_values:
+    - text: "I am going to run a restaurant search using the following preferences:\n
+             - preferences: {preferences}\n
+             - cuisine: {cuisine}\n"
+  utter_noworries:
+    - text: "You are welcome :)"
+  utter_wrong_cuisine:
+    - text: "Cuisine type is not in the database, please try again"
+  utter_wrong_outdoor_seating:
+    - text: "Could not convert input to boolean value, please try again"
+  utter_ask_for_opinion:
+    - text: "How do you like the suggestion?"
+  utter_default:
+    - text: "Sorry, I didn't understand you, please try input something else"
+  utter_no_worries:
+    - text: "No worries, bye"
+  utter_greet:
+    - text: "Hello! I am restaurant search assistant! How can I help?"
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+  utter_restart:
+    - text: "restarted"
+
+actions:
+  - action_record_preferences
+  - action_modify_preferences
+  - action_give_recommendation
+
+session_config:
+  session_expiration_time: 60  # value in minutes
+  carry_over_slots_to_new_session: true

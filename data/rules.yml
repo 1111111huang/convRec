@@ -1,0 +1,16 @@
+version: "2.0"
+rules:
+  - rule: critique
+    steps:
+      - intent: critique
+      - action: action_modify_preferences
+      - action: utter_slots_values
+      - action: action_give_recommendation
+      - action: utter_ask_for_opinion
+
+  - rule: record_preferences
+    steps:
+      - intent: inform
+      - action: action_record_preferences
+      - action: utter_ask_for_more
+

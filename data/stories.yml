@@ -1,0 +1,65 @@
+version: "2.0"
+stories:
+  - story: beginning of flow
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: request_restaurant
+      - action: utter_ask_preferences
+      - checkpoint: check_request_restaurant
+
+  - story: gathering preferences
+    steps:
+      - checkpoint: check_request_restaurant
+      - intent: inform
+      - action: action_record_preferences
+      - action: utter_ask_for_more
+      - intent: inform
+      - action: action_record_preferences
+      - action: utter_ask_for_more
+      - intent: inform
+      - action: action_record_preferences
+      - action: utter_ask_for_more
+      - intent: deny
+      - action: utter_submit
+      - action: utter_slots_values
+      - action: action_give_recommendation
+      - action: utter_ask_for_opinion
+      - checkpoint: check_search_completed
+
+  - story: critiquing_sad
+    steps:
+      - checkpoint: check_search_completed
+      - intent: critique
+      - action: action_modify_preferences
+      - action: utter_slots_values
+      - action: action_give_recommendation
+      - action: utter_ask_for_opinion
+
+  - story: critiquing_sad2
+    steps:
+      - checkpoint: check_search_completed
+      - intent: deny
+      - action: utter_ask_for_more
+      - intent: critique
+      - action: action_modify_preferences
+      - action: utter_slots_values
+      - action: action_give_recommendation
+      - action: utter_ask_for_opinion
+
+  - story: critiquing_happy
+    steps:
+      - checkpoint: check_search_completed
+      - intent: affirm
+      - action: utter_no_worries
+
+  - story: critiquing_mixed
+    steps:
+      - checkpoint: check_search_completed
+      - intent: critique
+      - action: action_modify_preferences
+      - action: utter_slots_values
+      - action: action_give_recommendation
+      - action: utter_ask_for_opinion
+      - intent: affirm
+      - action: utter_no_worries
